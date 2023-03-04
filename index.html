@@ -44,12 +44,13 @@
         <div class="hero-text">
             <h1>VerdantVault</h1><br>
             <h2>Your go-to library for important plants</h2><br>
-            <form>
-                <input type="text" placeholder="Search...">
-                <button type="submit">Search</button>
+            <form id="upload-form">
+                <input type="file" id="image-upload" accept="image/*">
+                <button type="submit" id="upload-button">Upload Image</button>
             </form>
         </div>
     </div>
+    <div id="results"></div>
     <script src="./src/main.js"></script>
 </body>
 
