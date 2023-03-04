@@ -1,34 +1,7 @@
-const resultsDiv = document.getElementById('results');
-
-function displayResults(results) {
-  resultsDiv.innerHTML = '';
-  results.forEach((result) => {
-    const name = result.name;
-    const description = result.description;
-    const imageUrl = result.images[0].url;
-
-    const resultBox = document.createElement('div');
-    resultBox.classList.add('result-box');
-
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    resultBox.appendChild(image);
-
-    const title = document.createElement('h2');
-    title.textContent = name;
-    resultBox.appendChild(title);
-
-    const desc = document.createElement('p');
-    desc.textContent = description;
-    resultBox.appendChild(desc);
-
-    resultsDiv.appendChild(resultBox);
-  });
-}
-
 const form = document.getElementById('upload-form');
 const input = document.getElementById('image-upload');
 const button = document.getElementById('upload-button');
+const resultsDiv = document.getElementById('results');
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -51,8 +24,40 @@ form.addEventListener('submit', function(e) {
       })
       .then(response => response.json())
       .then(data => {
-        const results = data.suggestions;
-        displayResults(results);
+        resultsDiv.innerHTML = '';
+        data.suggestions.forEach(suggestion => {
+          const resultBox = document.createElement('div');
+          resultBox.classList.add('result-box');
+
+          const resultImage = document.createElement('img');
+          resultImage.classList.add('result-image');
+          const wikiData = suggestion.taxonomy.wikipedia;
+          if (wikiData) {
+            const imageUrl = wikiData.image ? wikiData.image.source : '';
+            resultImage.src = imageUrl;
+          }
+          resultBox.appendChild(resultImage);
+
+          const resultName = document.createElement('div');
+          resultName.classList.add('result-name');
+          resultName.innerText = suggestion.plant_name;
+          resultBox.appendChild(resultName);
+
+          const resultDescription = document.createElement('div');
+          resultDescription.classList.add('result-description');
+          if (wikiData) {
+            const description = wikiData.description ? wikiData.description : '';
+            resultDescription.innerText = description;
+          }
+          resultBox.appendChild(resultDescription);
+
+          const resultProbability = document.createElement('div');
+          resultProbability.classList.add('result-probability');
+          resultProbability.innerText = `Probability: ${Math.round(suggestion.probability * 100)}%`;
+          resultBox.appendChild(resultProbability);
+
+          resultsDiv.appendChild(resultBox);
+        });
       })
       .catch(error => {
         console.error('Error:', error);
