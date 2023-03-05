@@ -24,7 +24,7 @@ body {
 .menu {
     margin-left: 2rem;
     margin-top: 2rem;
-    font-family: 'Libre Baskerville', sans-serif;
+    font-family: 'Special Elite', sans-serif;
     position: fixed;
     width: 4rem;
     height: 4rem;
@@ -59,6 +59,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    font-family: "Special Elite"
 }
 
 .hero-text {
@@ -80,7 +81,7 @@ body {
 }
 
 #upload-button {
-    font-family: 'Libre Baskerville', sans-serif;
+    font-family: 'Special Elite', sans-serif;
     background-color: #555;
     color: white;
     border: none;
@@ -88,7 +89,7 @@ body {
     border-radius: 1rem;
     cursor: pointer;
     padding: 1rem;
-    font-family: 'Libre Baskerville', sans-serif;
+    font-family: 'Special Elite', sans-serif;
 }
 
 .hero-top h1 {
@@ -130,7 +131,6 @@ body {
 }
 
 #choose-file-button {
-    font-family: 'Libre Baskerville', sans-serif;
     background-color: rgb(79, 121, 66);
     color: white;
     border: none;
@@ -138,6 +138,7 @@ body {
     border-radius: 1rem;
     cursor: pointer;
     font-size: 1.5rem;
+    font-family: 'Libre Baskerville', sans-serif;
   }
 
 .preview-content img {
@@ -200,10 +201,12 @@ body {
 
 .result-box h1 {
     margin: 0 1rem 0 2rem;
+    font-family: "Special Elite"
 }
 
 .result-box h3 {
     margin: 0 2rem 0 1rem;
+    font-family: "Special Elite"
 }
 
 .result-box p {
@@ -212,6 +215,7 @@ body {
 
 .result-box span {
     position: absolute;
+    font-family: "Special Elite";   
     top: 10px;
     left: 10px;
     font-size: 14px;
