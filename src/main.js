@@ -15,11 +15,11 @@ form.addEventListener('submit', function (e) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': 'frB9034VK3XX9Ld2m8OZRh64OnVBXJQje5mLdjvapJrOp6miCH'
+          'Api-Key': '97s9FGJUCzVMZzCybAQ6B3IT3OfGSVBga6w7ewoN88X8ei4FDc'
         },
         body: JSON.stringify({
           images: [dataUrl.split(',')[1]],
-          "plant_details": ["common_names", "wiki_image", "wiki_description", "url"],
+          "plant_details": ["common_names", "wiki_image", "wiki_description", "url", "propagation_methods", "watering", "edible_parts"],
           language: 'en'
         })
       })
@@ -27,20 +27,41 @@ form.addEventListener('submit', function (e) {
         .then(data => {
           if (data.suggestions.length > 0) {
             const resultsHTML = data.suggestions.map(suggestion => {
+              console.log(suggestion)
+              if (suggestion.plant_details.wiki_description){
+                var descriptionWords = suggestion.plant_details.wiki_description.value.split(' ');
+                var shortDescription = descriptionWords.slice(0, 100).join(' ');
+              }
+
+              let watering = ""
+              if (suggestion.plant_details.watering){
+                if (suggestion.plant_details.watering.min === suggestion.plant_details.watering.max){
+                  watering = suggestion.plant_details.watering.min
+                } else {
+                  watering = suggestion.plant_details.watering.min + " to " + suggestion.plant_details.watering.max
+                }
+              }
               return `
               <div class="result-box">
-                <img class="result-image" src="${suggestion.plant_details.wiki_image.value}">
+              <img class="result-image" src="${suggestion.plant_details.wiki_image ? suggestion.plant_details.wiki_image.value : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930'}" style="height:100%">
                 <h1 class="result-name">${suggestion.plant_name}</h1>
-                <span>(AKA. ${suggestion.plant_details.common_names[0]})</span></h2>
-                <p class="result-description">${suggestion.plant_details.wiki_description.value}</p>
+                <span>(AKA. ${suggestion.plant_details.common_names ? suggestion.plant_details.common_names[0] : "No Common Names!"})</span></h2>
+                <div>
+                <br><br>
+                  <p class="result-description">${shortDescription ? shortDescription + "..." : 'No Description Available!'}</p><br>
+                  <a href="${suggestion.plant_details.url}"class="result-url">Read more here!</a><br><br>
+                  <p class="result-edible-parts">Edible parts: ${suggestion.plant_details.edible_parts ? suggestion.plant_details.edible_parts.join(', ') : 'none'}</p>
+                  <p class="result-propagation-methods">Propagation methods: ${suggestion.plant_details.propagation_methods ? suggestion.plant_details.propagation_methods.join(', ') : 'none'}</p>
+                  <p class="result-watering">Watering level: ${suggestion.plant_details.watering ? watering : 'none'}</p><br><br>
+                </div>
                 <h3 class="result-probability">Probability: ${Math.round(suggestion.probability * 100)}%</h3>
               </div>
             `;
             }).join('');
             resultsDiv.innerHTML = resultsHTML;
-            resultsDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+            resultsDiv.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
           } else {
-            resultsDiv.innerHTML = '<div class="no-result">No results found. Please try again with a different image.</div>';
+            resultsDiv.innerHTML = '<h1 class="no-result">No results found. Please try again with a different image.</h1>';
           }
         })
 
@@ -91,7 +112,6 @@ window.addEventListener("click", function (e) {
 // Prevent the default form submission and show the image preview box
 uploadForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  previewBox.insertBefore(previewImage, uploadContainer.nextSibling); // append the preview image above the buttons
   const uploadInputClone = uploadInput.cloneNode(true); // clone the input element
   previewBox.appendChild(uploadInputClone); // append the clone to the preview box
 });
