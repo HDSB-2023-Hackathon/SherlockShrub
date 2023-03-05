@@ -1,20 +1,21 @@
+// #region API requests, etc.
 const form = document.getElementById('upload-form');
 const input = document.getElementById('image-upload');
 const button = document.getElementById('upload-button');
 const resultsDiv = document.getElementById('results');
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
   e.preventDefault();
   const file = input.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
       const dataUrl = reader.result;
       fetch('https://api.plant.id/v2/identify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': 'eYMF44yTQ1hnas37J4urhdM1bcUdtYgaulhFIbD7ZaPrYRvjg2'
+          'Api-Key': 'frB9034VK3XX9Ld2m8OZRh64OnVBXJQje5mLdjvapJrOp6miCH'
         },
         body: JSON.stringify({
           images: [dataUrl.split(',')[1]],
@@ -22,11 +23,11 @@ form.addEventListener('submit', function(e) {
           language: 'en'
         })
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.suggestions.length > 0) {
-          const resultsHTML = data.suggestions.map(suggestion => {
-            return `
+        .then(response => response.json())
+        .then(data => {
+          if (data.suggestions.length > 0) {
+            const resultsHTML = data.suggestions.map(suggestion => {
+              return `
               <div class="result-box">
                 <img class="result-image" src="${suggestion.plant_details.wiki_image.value}">
                 <h1 class="result-name">${suggestion.plant_name}</h1>
@@ -35,17 +36,75 @@ form.addEventListener('submit', function(e) {
                 <h3 class="result-probability">Probability: ${Math.round(suggestion.probability * 100)}%</h3>
               </div>
             `;
-          }).join('');
-          resultsDiv.innerHTML = resultsHTML;
-        } else {
-          resultsDiv.innerHTML = '<div class="no-result">No results found. Please try again with a different image.</div>';
-        }
-      })
-      
-      .catch(error => {
-        console.error('Error:', error);
-      });
+            }).join('');
+            resultsDiv.innerHTML = resultsHTML;
+            resultsDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+          } else {
+            resultsDiv.innerHTML = '<div class="no-result">No results found. Please try again with a different image.</div>';
+          }
+        })
+
+        .catch(error => {
+          console.error('Error:', error);
+        });
     };
     reader.readAsDataURL(file);
   }
+});
+
+// #endregion
+
+// #region photo preview
+const uploadForm = document.getElementById("upload-form");
+const uploadInput = document.getElementById("image-upload");
+const previewImage = document.getElementById("preview-image");
+const previewBox = document.querySelector(".preview-box");
+const closePreview = document.getElementById("close-preview");
+const imagePreview = document.querySelector(".image-preview");
+
+// Show the image preview box when an image is selected
+uploadInput.addEventListener("change", function () {
+  if (this.files && this.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage.setAttribute("src", e.target.result);
+      imagePreview.style.display = "block";
+    };
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+
+// Close the image preview box when the close button is clicked
+closePreview.addEventListener("click", function () {
+  previewImage.setAttribute("src", "");
+  imagePreview.style.display = "none";
+});
+
+// Close the image preview box when the user clicks outside the box
+window.addEventListener("click", function (e) {
+  if (e.target == imagePreview) {
+    previewImage.setAttribute("src", "");
+    imagePreview.style.display = "none";
+  }
+});
+
+// Prevent the default form submission and show the image preview box
+uploadForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  previewBox.insertBefore(previewImage, uploadContainer.nextSibling); // append the preview image above the buttons
+  const uploadInputClone = uploadInput.cloneNode(true); // clone the input element
+  previewBox.appendChild(uploadInputClone); // append the clone to the preview box
+});
+
+document.getElementById("upload-button").addEventListener("click", function () {
+  closePreview.click();
+});
+
+//#endregion
+
+const chooseFileButton = document.getElementById('choose-file-button');
+const fileInput = document.getElementById('image-upload');
+
+chooseFileButton.addEventListener('click', function () {
+  fileInput.click();
 });

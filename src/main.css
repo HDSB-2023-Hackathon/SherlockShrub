@@ -54,35 +54,95 @@ body {
 
 .hero-top {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/hero.jpg");
-    height: 80%;
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-} .hero-top form input{
-    background-color: white;
-    content: '';
-    padding: 2rem;
-    border-radius: 1rem;
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#image-upload {
+    display: none;
+}
+
+#upload-button {
     font-family: 'Libre Baskerville', sans-serif;
-} .hero-top form input::-webkit-file-upload-button {
-    visibility: hidden;
-  } .hero-top form input::before{
-    content: 'Select some files';
-    user-select: none;
-    display: inline-block;
-    color: black;
-    text-align: center;
-    outline: none;
-    white-space: nowrap;
-  }
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 1rem;
+    font-family: 'Libre Baskerville', sans-serif;
+}
 
 .hero-top h1 {
     font-size: 4rem
 }
 
+  
+.image-preview {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: auto;
+}
+
+.preview-box {
+    position: relative;
+    margin: 5% auto;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
 .hero-top h2 {
     font-size: 2rem;
+}
+
+.preview-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#choose-file-button {
+    font-family: 'Libre Baskerville', sans-serif;
+    background-color: rgb(79, 121, 66);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
+.preview-content img {
+    max-width: 100%;
+    max-height: 80vh;
 }
 
 .hero-text {
@@ -94,50 +154,56 @@ body {
     color: white;
 }
 
-#upload-button {
-    padding: 1rem;
-    font-family: 'Libre Baskerville', sans-serif;
-    font-size: 1rem;
-    border-radius: 1rem;
+#close-preview {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #c23126;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#close-preview:hover {
+    background-color: #af2626;
 }
 
 #results {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
 }
 
 .result-box {
     margin: 2rem;
     text-align: center;
     display: flex;
-    width: 20%;
+    width: 90%;
     height: 80%;
     border-radius: 1rem;
     background-color: #f2f2f2;
     position: relative;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: center;
     align-content: center;
 }
 
 .result-box img {
-    width: 100%;
-    height: auto;
+    width: 20%;
     object-fit: cover;
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 1rem 0 0 1rem;
 }
 
 .result-box h1 {
-    margin: 1rem;
+    margin: 0 1rem 0 2rem;
 }
+
 .result-box h3 {
-    margin: 1rem;
+    margin: 0 2rem 0 1rem;
 }
 
 .result-box p {
