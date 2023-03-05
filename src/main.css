@@ -76,15 +76,15 @@ body {
   }
   
   .result-box {
+    margin: 2rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
-    width: 300px;
-    height: 300px;
-    border-radius: 20px;
+    width: 20%;
+    height: 80%;
+    border-radius: 2rem;
     background-color: #f2f2f2;
-    overflow: hidden;
     position: relative;
   }
   

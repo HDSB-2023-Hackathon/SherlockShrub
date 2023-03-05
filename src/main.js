@@ -14,50 +14,52 @@ form.addEventListener('submit', function(e) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': 'kKb6UsOtuHjqSaHHoETeJRSsnRg6x7wretC0FqAmJVsYM2YmEC'
+          'Api-Key': 'eYMF44yTQ1hnas37J4urhdM1bcUdtYgaulhFIbD7ZaPrYRvjg2'
         },
         body: JSON.stringify({
           images: [dataUrl.split(',')[1]],
-          organs: ['flower', 'leaf', 'fruit', 'bark', 'habit', 'other'],
+          "plant_details": ["common_names", "wiki_image", "wiki_description", "url"],
           language: 'en'
         })
       })
       .then(response => response.json())
       .then(data => {
         resultsDiv.innerHTML = '';
-        data.suggestions.forEach(suggestion => {
-          const resultBox = document.createElement('div');
-          resultBox.classList.add('result-box');
-
-          const resultImage = document.createElement('img');
-          resultImage.classList.add('result-image');
-          const wikiData = suggestion.taxonomy.wikipedia;
-          if (wikiData) {
-            const imageUrl = wikiData.image ? wikiData.image.source : '';
-            resultImage.src = imageUrl;
-          }
-          resultBox.appendChild(resultImage);
-
-          const resultName = document.createElement('div');
-          resultName.classList.add('result-name');
-          resultName.innerText = suggestion.plant_name;
-          resultBox.appendChild(resultName);
-
-          const resultDescription = document.createElement('div');
-          resultDescription.classList.add('result-description');
-          if (wikiData) {
-            const description = wikiData.description ? wikiData.description : '';
-            resultDescription.innerText = description;
-          }
-          resultBox.appendChild(resultDescription);
-
-          const resultProbability = document.createElement('div');
-          resultProbability.classList.add('result-probability');
-          resultProbability.innerText = `Probability: ${Math.round(suggestion.probability * 100)}%`;
-          resultBox.appendChild(resultProbability);
-
-          resultsDiv.appendChild(resultBox);
-        });
+        if (data.suggestions.length > 0) {
+          data.suggestions.forEach(suggestion => {
+            console.log('suggestion:', suggestion);
+            const resultBox = document.createElement('div');
+            resultBox.classList.add('result-box');
+            const resultImage = document.createElement('img');
+            resultImage.classList.add('result-image');
+            resultImage.src = suggestion.plant_details.wiki_image.value;
+            resultBox.appendChild(resultImage);
+            const resultName = document.createElement('h1');
+            resultName.classList.add('result-name');
+            resultName.innerText = suggestion.plant_name;
+            resultBox.appendChild(resultName);
+            const resultCommonName = document.createElement('h2');
+            resultCommonName.classList.add('resultCommonName');
+            resultCommonName.innerText = suggestion.plant_details.common_names[0];
+            const resultCommonNameSpan = document.createElement('span');
+            resultCommonNameSpan.innerText = `(AKA. ${resultCommonName.innerText})`;
+            resultBox.appendChild(resultCommonNameSpan);
+            const resultDescription = document.createElement('p');
+            resultDescription.classList.add('result-description');
+            resultDescription.innerText = suggestion.plant_details.wiki_description.value;
+            resultBox.appendChild(resultDescription);
+            const resultProbability = document.createElement('h3');
+            resultProbability.classList.add('result-probability');
+            resultProbability.innerText = `Probability: ${Math.round(suggestion.probability * 100)}%`;
+            resultBox.appendChild(resultProbability);
+            resultsDiv.appendChild(resultBox);
+          });
+        } else {
+          const noResultDiv = document.createElement('div');
+          noResultDiv.classList.add('no-result');
+          noResultDiv.innerText = 'No results found. Please try again with a different image.';
+          resultsDiv.appendChild(noResultDiv);
+        }
       })
       .catch(error => {
         console.error('Error:', error);
