@@ -34,10 +34,10 @@ body {
 .hero-text {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     justify-content: center;
     color: white;
+    align-items: center;
 }
 
 .file-upload {
@@ -147,8 +147,10 @@ body {
 
 #results {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .result-box {
@@ -202,4 +204,49 @@ body {
     padding: 5px 10px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .hero-top h1 {
+        font-size: 2rem;
+        font-family: 'Libre Baskerville', sans-serif;
+    }
+
+    #TITLES{
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .result-box {
+        margin: 2rem;
+        text-align: center;
+        display: flex;
+        width: 90%;
+        height: auto;
+        border-radius: 1rem;
+        background-color: hsl(0, 0%, 95%);
+        position: relative;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        align-items: center;
+    }
+
+    .result-box img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .result-box h1 {
+        margin: 2rem 1rem 0 1rem;
+        font-family: "Special Elite"
+    }    
+
+    .result-box h3 {
+        margin: 1rem 0 2rem 0;
+        font-family: "Special Elite"
+    }
 }
