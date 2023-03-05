@@ -36,26 +36,52 @@ body {
     align-content: center;
     border: solid 0px;
     transition: background-color 0.2s;
-} .menu svg{
+}
+
+.menu svg {
     width: 2rem;
     height: 2rem;
-} .menu:hover{
+}
+
+.menu:hover {
     background-color: #d0d0d0;
     cursor: pointer;
-} .menu:active{
+}
+
+.menu:active {
     background-color: #a0a0a0
 }
 
 .hero-top {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/hero.jpg");
-    height: 75%;
+    height: 80%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-} .hero-top h1 {
+} .hero-top form input{
+    background-color: white;
+    color: transparent;
+    padding: 2rem;
+    border-radius: 1rem;
+    font-family: 'Libre Baskerville', sans-serif;
+} .hero-top form input::-webkit-file-upload-button {
+    visibility: hidden;
+  } .hero-top form input::before{
+    content: 'Select some files';
+    user-select: none;
+    display: inline-block;
+    color: black;
+    text-align: center;
+    outline: none;
+    white-space: nowrap;
+  }
+
+.hero-top h1 {
     font-size: 4rem
-} .hero-top h2 {
+}
+
+.hero-top h2 {
     font-size: 2rem;
 }
 
@@ -68,44 +94,57 @@ body {
     color: white;
 }
 
+#upload-button {
+    padding: 1rem;
+    font-family: 'Libre Baskerville', sans-serif;
+    font-size: 1rem;
+    border-radius: 1rem;
+}
+
 #results {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-  }
-  
-  .result-box {
+    align-items: flex-start;
+}
+
+.result-box {
     margin: 2rem;
     text-align: center;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 20%;
     height: 80%;
-    border-radius: 2rem;
+    border-radius: 1rem;
     background-color: #f2f2f2;
     position: relative;
-  }
-  
-  .result-box img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.result-box img {
     width: 100%;
-    height: 70%;
+    height: auto;
     object-fit: cover;
-    border-radius: 20px 20px 0 0;
-  }
-  
-  .result-box h3 {
-    margin-top: 10px;
-    font-size: 20px;
-  }
-  
-  .result-box p {
-    margin: 10px;
-    font-size: 16px;
-  }
-  
-  .result-box span {
+    border-radius: 1rem 1rem 0 0;
+}
+
+.result-box h1 {
+    margin: 1rem;
+}
+.result-box h3 {
+    margin: 1rem;
+}
+
+.result-box p {
+    margin: 0 2rem 0 2rem;
+}
+
+.result-box span {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -113,4 +152,4 @@ body {
     padding: 5px 10px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
-  }
+}

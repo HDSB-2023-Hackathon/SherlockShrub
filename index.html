@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VerdantVault - Open Source Plant Library</title>
+    <title>SherlockShrub - Your Personal Plant Detective</title>
 
-    <meta content="VerdantVault" property="og:title" />
-    <meta content="Open Source Plant Library" property="og:description" />
+    <meta content="SherlockShrub" property="og:title" />
+    <meta content="Your Personal Plant Detective" property="og:description" />
     <meta content="https://hdsb-2023-hackathon.github.io/Anthony-Huang-HDSB-2023-Hackathon-Submission/" property="og:url" />
     <meta content="https://i.imgur.com/8QaFXJU.png" property="og:image" />
 
@@ -16,24 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bitter&family=Libre+Baskerville&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./src/main.css">
-    <style>
-        article a {
-            text-decoration: underline;
-        }
-
-        article p{
-            width: 85%;
-        }
-
-        article{
-            display: flex;
-            padding: 0 1vw 0 2.5vw;
-            text-align: left;
-            justify-content: space-between;
-            flex-direction: row;
-            align-items: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -45,12 +27,13 @@
             <h1>SherlockShrub</h1><br>
             <h2>Your Personal Plant Detective</h2><br>
             <form id="upload-form">
-                <input type="file" id="image-upload" accept="image/*">
-                <button type="submit" id="upload-button">Upload Image</button>
+                <input type="file" id="image-upload" accept="image/*"><br>
+                <button type="submit" id="upload-button">Upload Image!</button>
             </form>
         </div>
     </div>
-    <div id="results"></div>
+    <div id="results">
+    </div>
     <script src="./src/main.js"></script>
 </body>
 
