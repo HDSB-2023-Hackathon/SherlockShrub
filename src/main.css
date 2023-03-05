@@ -61,7 +61,7 @@ body {
     position: relative;
 } .hero-top form input{
     background-color: white;
-    color: transparent;
+    content: '';
     padding: 2rem;
     border-radius: 1rem;
     font-family: 'Libre Baskerville', sans-serif;

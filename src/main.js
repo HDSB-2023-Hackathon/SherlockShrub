@@ -24,43 +24,24 @@ form.addEventListener('submit', function(e) {
       })
       .then(response => response.json())
       .then(data => {
-        resultsDiv.innerHTML = '';
         if (data.suggestions.length > 0) {
-          data.suggestions.forEach(suggestion => {
-            console.log('suggestion:', suggestion);
-            const resultBox = document.createElement('div');
-            resultBox.classList.add('result-box');
-            const resultImage = document.createElement('img');
-            resultImage.classList.add('result-image');
-            resultImage.src = suggestion.plant_details.wiki_image.value;
-            resultBox.appendChild(resultImage);
-            const resultName = document.createElement('h1');
-            resultName.classList.add('result-name');
-            resultName.innerText = suggestion.plant_name;
-            resultBox.appendChild(resultName);
-            const resultCommonName = document.createElement('h2');
-            resultCommonName.classList.add('resultCommonName');
-            resultCommonName.innerText = suggestion.plant_details.common_names[0];
-            const resultCommonNameSpan = document.createElement('span');
-            resultCommonNameSpan.innerText = `(AKA. ${resultCommonName.innerText})`;
-            resultBox.appendChild(resultCommonNameSpan);
-            const resultDescription = document.createElement('p');
-            resultDescription.classList.add('result-description');
-            resultDescription.innerText = suggestion.plant_details.wiki_description.value;
-            resultBox.appendChild(resultDescription);
-            const resultProbability = document.createElement('h3');
-            resultProbability.classList.add('result-probability');
-            resultProbability.innerText = `Probability: ${Math.round(suggestion.probability * 100)}%`;
-            resultBox.appendChild(resultProbability);
-            resultsDiv.appendChild(resultBox);
-          });
+          const resultsHTML = data.suggestions.map(suggestion => {
+            return `
+              <div class="result-box">
+                <img class="result-image" src="${suggestion.plant_details.wiki_image.value}">
+                <h1 class="result-name">${suggestion.plant_name}</h1>
+                <span>(AKA. ${suggestion.plant_details.common_names[0]})</span></h2>
+                <p class="result-description">${suggestion.plant_details.wiki_description.value}</p>
+                <h3 class="result-probability">Probability: ${Math.round(suggestion.probability * 100)}%</h3>
+              </div>
+            `;
+          }).join('');
+          resultsDiv.innerHTML = resultsHTML;
         } else {
-          const noResultDiv = document.createElement('div');
-          noResultDiv.classList.add('no-result');
-          noResultDiv.innerText = 'No results found. Please try again with a different image.';
-          resultsDiv.appendChild(noResultDiv);
+          resultsDiv.innerHTML = '<div class="no-result">No results found. Please try again with a different image.</div>';
         }
       })
+      
       .catch(error => {
         console.error('Error:', error);
       });
