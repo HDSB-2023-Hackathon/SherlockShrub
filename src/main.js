@@ -15,7 +15,7 @@ form.addEventListener('submit', function (e) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Api-Key': '97s9FGJUCzVMZzCybAQ6B3IT3OfGSVBga6w7ewoN88X8ei4FDc'
+          'Api-Key': 'vBIyA0SGEtN343TmVX2L9ho0CqCjyod15pg9sGpLXM3FHNWkN9'
         },
         body: JSON.stringify({
           images: [dataUrl.split(',')[1]],
